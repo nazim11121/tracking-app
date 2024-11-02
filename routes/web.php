@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplyPersonController;
+use App\Http\Controllers\PostController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,4 +30,5 @@ Route::get('/apply/list', [ApplyPersonController::class, 'index'])->middleware([
 Route::get('/manage/create', [ApplyPersonController::class, 'create'])->middleware(['auth'])->name('manage.create');
 Route::post('/manage/store', [ApplyPersonController::class, 'store'])->middleware(['auth'])->name('manage.store');
 
+Route::resource('/posts', PostController::class)->middleware(['auth']);
 require __DIR__.'/auth.php';

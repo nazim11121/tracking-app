@@ -12,9 +12,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="col-12">
+                <a href="{{route('apply.list')}}" class="btn btn-primary mb-2">View List</a>
                 @if(Auth::id()==1)
-                    <a href="{{route('apply.list')}}" class="btn btn-primary">View List</a>
-                    <a href="{{route('manage.create')}}" class="btn btn-success">Manage</a>
+                    <a href="{{route('manage.create')}}" class="btn btn-success mb-2">Manage</a>
                 @else
                 <div class="p-6 bg-white border-b border-gray-200">
                     You're logged in!

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use App\Models\ApplyPerson;
 use Illuminate\Http\Request;
 use DB;
-
+use Auth;
 class ApplyPersonController extends Controller
 {
     /**
@@ -29,8 +30,9 @@ class ApplyPersonController extends Controller
             if(!empty($userDublicateCheck)){
                 return redirect()->route('dashboard')->with('success','Already submitted');
             }
-            // $post = Post::where('id', $request->trackingId)->get()->first();
-            $postAddress = 'Savar';
+
+            $postAddress = Post::where('tracking_id', $request->trackingId)->get()->pluck('address')->first();
+            dd($postAddress);
             $user = DB::table('users')->where('address', 'LIKE', '%' . strtolower($postAddress) . '%')->first();
             if($user){
                 $data = new ApplyPerson();
@@ -52,7 +54,10 @@ class ApplyPersonController extends Controller
     
     public function index()
     {
-        $data = ApplyPerson::where('tracking_id', '7520103EW')->get();
+ 
+        $postId = Post::where('user_id', Auth::id())->get()->pluck('tracking_id')->first();
+        $data = ApplyPerson::where('tracking_id', $postId)->get();
+        // $data = ApplyPerson::where('tracking_id', '7520103EW')->get();
         return view('list', compact('data'));
     }
 
